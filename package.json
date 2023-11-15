@@ -14,6 +14,9 @@
     "type": "git",
     "url": "https://github.com/faf4a/create-aoijs-bot.git"
   },
+  "scripts": {
+    "test": "echo no test available"
+  },
   "keywords": [
     "CLI",
     "template",
