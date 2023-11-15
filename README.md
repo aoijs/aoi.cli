@@ -34,11 +34,17 @@ To generate a bot template, open your terminal and run the following command:
 npx create-aoijs-bot
 ```
 
+If you ran the install command via `npm` you can also execute it directly:
+
+```bash
+create-aoijs-bot
+```
+
 Follow the on-screen prompts to select your desired bot setup, input configuration details, and initiate the template generation process.
 
 ## Contribution
 
-Contributions are welcome! If you encounter any issues, have suggestions, or want to add features, please open an issue or submit a pull request on [GitHub](https://github.com/faf4a/aoi-cli).
+Contributions are welcome! If you encounter any issues, have suggestions, or want to add features, please open an issue or submit a pull request on [GitHub](https://github.com/faf4a/create-aoijs-bot).
 
 ## License
 
