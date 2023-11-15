@@ -20,7 +20,13 @@
   "keywords": [
     "CLI",
     "template",
-    "tool"
+    "tool",
+    "aoijs",
+    "aoi.js",
+    "discord",
+    "discordbot",
+    "bot",
+    "generate"
   ],
   "dependencies": {
     "fs": "^0.0.1-security",
