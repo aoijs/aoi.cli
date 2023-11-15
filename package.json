@@ -1,0 +1,24 @@
+{
+  "name": "create-aoijs-bot",
+  "version": "0.0.3",
+  "description": "CLI Tool for easily creating an aoi.js Discord Bot.",
+  "main": "bin/index.js",
+  "bin": {
+    "create-aoijs-bot": "bin/index.js"
+  },
+  "preferGlobal": true,
+  "keywords": [
+    "CLI",
+    "template",
+    "tool"
+  ],
+  "author": "Faf4a",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "inquirer": "^9.2.12",
+    "ora": "^7.0.1",
+    "path": "^0.12.7"
+  }
+}
