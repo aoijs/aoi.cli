@@ -67,15 +67,18 @@ async function promptUser() {
 async function modifyIndex(answers, directoryPath) {
   const { prefix, token, setup, "install-aoimusic": installaoimusic } = answers;
 
-  let mainFileContent = fs.readFileSync(path.join(__dirname, "../src/template/index.template.js"), "utf8");
-  let shardingFileContent = fs.readFileSync(path.join(__dirname, "../src/template/sharding.template.js"), "utf8");
-  let handlerFileContent = fs.readFileSync(path.join(__dirname, "../src/template/handler.template.js"), "utf8");
-  let handlerExampleContent = fs.readFileSync(path.join(__dirname, "../src/template/handler-example.template.js"), "utf8");
-  let aoimusicsetup = fs.readFileSync(path.join(__dirname, "../src/template/aoi-music.template.js"), "utf8").split("\/\/---");
+  let mainFileContent = fs.readFileSync(path.join(__dirname, "../src/template/index.template.js"), "utf8")
+    .replace(/{TOKEN}/g, token)
+    .replace(/{PREFIX}/g, prefix);
 
-  mainFileContent = mainFileContent.replace("{TOKEN}", token).replace("{PREFIX}", prefix);
-  shardingFileContent = shardingFileContent.replace("{TOKEN}", token).replace("{PREFIX}", prefix);
-  handlerFileContent = handlerFileContent.replace("{TOKEN}", token).replace("{PREFIX}", prefix);
+  let shardingFileContent = fs.readFileSync(path.join(__dirname, "../src/template/sharding.template.js"), "utf8")
+    .replace(/{TOKEN}/g, token)
+    .replace(/{PREFIX}/g, prefix);
+
+  let handlerFileContent = fs.readFileSync(path.join(__dirname, "../src/template/handler.template.js"), "utf8")
+    .replace(/{TOKEN}/g, token)
+    .replace(/{PREFIX}/g, prefix);  let handlerExampleContent = fs.readFileSync(path.join(__dirname, "../src/template/handler-example.template.js"), "utf8");
+  let aoimusicsetup = fs.readFileSync(path.join(__dirname, "../src/template/aoi-music.template.js"), "utf8").split("\/\/---");
 
   fs.writeFileSync(
     path.join(directoryPath, "index.js"),
@@ -83,7 +86,7 @@ async function modifyIndex(answers, directoryPath) {
   );
 
   if (setup === "Default with Handler" && !fs.existsSync(path.join(directoryPath, "commands"))) {
-    await fs.mkdirSync(path.join(directoryPath, "commands"), { recursive: true });
+    fs.mkdirSync(path.join(directoryPath, "commands"), { recursive: true });
     fs.writeFileSync(path.join(directoryPath, "commands", "ping.js"), handlerExampleContent);
   }
 
