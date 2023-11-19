@@ -42,6 +42,12 @@ create-aoijs-bot
 
 Follow the on-screen prompts to select your desired bot setup, input configuration details, and initiate the template generation process.
 
+### Command Arguments
+
+You can display all available args with `create-aoijs-bot --help`.
+
+`--debug`: Enabled debug logging, including verbose logs.
+
 ## Contribution
 
 Contributions are welcome! If you encounter any issues, have suggestions, or want to add features, please open an issue or submit a pull request on [GitHub](https://github.com/faf4a/create-aoijs-bot).
