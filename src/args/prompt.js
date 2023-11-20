@@ -38,7 +38,7 @@ async function promptUser() {
       type: "list",
       name: "setup",
       message: "template",
-      choices: ["Default", "Default with Handler", "Sharding"],
+      choices: ["default", "default with handler", "sharding"],
       default: "Default",
     },
     {
