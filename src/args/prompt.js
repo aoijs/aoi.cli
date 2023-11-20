@@ -14,8 +14,8 @@ async function promptUser() {
     {
       type: "input",
       name: "directory",
-      message: "Enter the directory path where you want to generate files:",
-      default: "./",
+      message: "Enter the path of where your project files will go:",
+      default: "./aoijs",
     },
     {
       type: "input",
