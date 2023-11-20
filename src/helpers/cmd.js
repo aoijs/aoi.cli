@@ -5,20 +5,16 @@ import chalk from "chalk";
 
 const exec = promisify(execCallback);
 
-export async function execute(cmd, debug = false) {
+export async function execute(cmd) {
   try {
-    if (debug) {
-      console.log(`${chalk.bgYellow("--debug")} Executing command: ${cmd}`);
-    }
-
-    await exec(cmd, { stdio: debug ? "inherit" : "ignore" });
+    await exec(cmd, { stdio: "ignore" });
   } catch {
     console.error(`\n\r${chalk.red("✖")} Failed to execute ${chalk.cyan(cmd)}.`);
     process.exit(1);
   } // todo: improve error handling
 }
 
-export async function install(pkg, debug = false, text = `Installing ${chalk.bold(pkg)}`) {
+export async function install(pkg, text = `Installing ${chalk.bold(pkg)}`) {
   const spinner = ora(text).start();
 
   if (checkNodeJS(process.versions.node, "16.9.0") === -1) {
@@ -27,7 +23,7 @@ export async function install(pkg, debug = false, text = `Installing ${chalk.bol
   }
 
   try {
-    await exec(`npm install ${pkg} --save`, { stdio: debug ? "inherit" : ["ignore", "pipe", "ignore"] });
+    await exec(`npm install ${pkg} --save`, { stdio: ["ignore", "pipe", "ignore"]  });
     spinner.succeed(`Installed ${chalk.bold.cyan(pkg)}`);
   } catch (error) {
     spinner.fail(`Failed to install ${chalk.bold.cyan(pkg)}`);

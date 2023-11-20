@@ -1,6 +1,6 @@
 {
   "name": "create-aoijs-bot",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "CLI Tool for easily creating an aoi.js Discord Bot.",
   "author": "Faf4a",
   "type": "module",

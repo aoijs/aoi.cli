@@ -2,8 +2,11 @@
 
 import chalk from "chalk";
 
-console.log(`Usage: ${chalk.cyan("create-aoijs-bot")} [options]\n`);
-console.log(`Options:
+console.log(`
+Usage: ${chalk.cyan("create-aoijs-bot")} [options]
+
+Options:
 ${chalk.cyan("--help")}               Display this help message
-${chalk.cyan("--debug")}              Enable debugging mode for verbose logs
-${chalk.cyan("--[no args]")}          Start the interactive prompt`);
+${chalk.cyan("--version")}            Displays the current version of this tool
+${chalk.cyan("--[no args]")}          Start the interactive Discord Bot Setup
+`);
