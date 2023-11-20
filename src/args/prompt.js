@@ -39,7 +39,7 @@ async function promptUser() {
       name: "setup",
       message: "template",
       choices: ["default", "default with handler", "sharding"],
-      default: "Default",
+      default: "default",
     },
     {
       type: "confirm",
@@ -92,11 +92,11 @@ async function modifyIndex(answers, directoryPath) {
 
   fs.writeFileSync(
     path.join(directoryPath, "index.js"),
-    setup === "Default with Handler" ? handlerFileContent : mainFileContent
+    setup === "default with handler" ? handlerFileContent : mainFileContent
   );
 
   if (
-    setup === "Default with Handler" &&
+    setup === "default with handler" &&
     !fs.existsSync(path.join(directoryPath, "commands"))
   ) {
     fs.mkdirSync(path.join(directoryPath, "commands"), { recursive: true });
@@ -121,7 +121,7 @@ async function modifyIndex(answers, directoryPath) {
     );
   }
 
-  if (answers.setup === "Sharding") {
+  if (answers.setup === "sharding") {
     fs.writeFileSync(
       path.join(directoryPath, "sharding.js"),
       shardingFileContent
