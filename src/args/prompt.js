@@ -14,13 +14,13 @@ async function promptUser() {
     {
       type: "input",
       name: "directory",
-      message: "Enter the path of where your project files will go:",
+      message: "project directory:",
       default: "./aoijs",
     },
     {
       type: "input",
       name: "token",
-      message: "Enter your Discord Bot Token:",
+      message: "discord bot token:",
       transformer: (input) => {
         return input.indexOf(".") !== -1
           ? input.substring(0, input.indexOf(".")) +
@@ -31,26 +31,26 @@ async function promptUser() {
     {
       type: "input",
       name: "prefix",
-      message: "Enter your Discord Bot Prefix:",
+      message: "discord bot prefix:",
       default: "!",
     },
     {
       type: "list",
       name: "setup",
-      message: "Which setup would you like to continue with?",
+      message: "template",
       choices: ["Default", "Default with Handler", "Sharding"],
       default: "Default",
     },
     {
       type: "confirm",
       name: "install-deps",
-      message: "Do you want to install all needed packages (aoi.js)?",
+      message: "pre-install packages?",
       default: "Yes",
     },
     {
       type: "confirm",
       name: "install-aoimusic",
-      message: "Do you want to use aoi.music?",
+      message: "install aoi.music?",
       default: "Yes",
     },
   ]);
