@@ -211,7 +211,7 @@ try {
     );
 
   console.log(
-    `\n\rYou can now start your bot using the command \`node .\`\n\rIf you have any issues feel free to join our Discord (${chalk.underline(
+    `\n\rYou can now start your bot using the command ${chalk.gray("\`node .\`")}\n\rIf you have any issues feel free to join our Discord (${chalk.underline(
       "https://aoi.js.org/invite"
     )}) or check our documentation (${chalk.underline("https://aoi.js.org/")}).`
   );
