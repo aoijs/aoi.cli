@@ -54,7 +54,7 @@ async function promptUser() {
   ];
 
   if (os.platform() === "linux") {
-    questions.splice(2, 0, {
+    questions.splice(1, 0, {
       type: "confirm",
       name: "isreplit",
       message: "Are you using replit? (press enter to skip):",
@@ -195,7 +195,7 @@ try {
         " WARN "
       )} You are using replit, so you need to add your token and prefix in a enviorment variable called ${chalk.gray(
         "token"
-      )} and ${chalk.gray("prefix")}.`
+      )} and ${chalk.gray("prefix")}. \n\r Don't know what to do? Check out their documentation: ${chalk.underline("https://docs.replit.com/programming-ide/workspace-features/secrets")}`
     );
   }
 
