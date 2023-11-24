@@ -14,7 +14,7 @@ export async function execute(cmd) {
   } // todo: improve error handling
 }
 
-export async function install(pkg, text = `Installing ${chalk.bold(pkg)}`) {
+export async function install(pkg, text = `Installing ${chalk.bold(pkg)}`, global = false) {
   const spinner = ora(text).start();
 
   if (checkNodeJS(process.versions.node, "16.9.0") === -1) {
@@ -23,7 +23,7 @@ export async function install(pkg, text = `Installing ${chalk.bold(pkg)}`) {
   }
 
   try {
-    await exec(`npm install ${pkg} --save`, { stdio: ["ignore", "pipe", "ignore"]  });
+    await exec(`npm install ${pkg} ${global === true ? "-g" : "--save"}`, { stdio: ["ignore", "pipe", "ignore"]  });
     spinner.succeed(`Installed ${chalk.bold.cyan(pkg)}`);
   } catch (error) {
     spinner.fail(`Failed to install ${chalk.bold.cyan(pkg)}`);

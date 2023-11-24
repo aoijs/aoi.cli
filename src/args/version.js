@@ -48,12 +48,11 @@ const continueInstall = async () => {
       )}) is available to download, do you wish to continue?`
     );
     await continueInstall();
-    await installer.execute("npm install -g create-aoijs-bot@latest");
+    await installer.install("create-aoijs-bot@latest", `Updating ${chalk.bold("create-aoijs-bot")}`,  true);
     console.log(
-      `Successfully updated to the latest version (${chalk.cyan(
+      `\n\rSuccessfully updated to the latest version (${chalk.cyan(
         "v" + latestVersion
-      )}), now running the version command again. \n\r\n\r`
+      )}).`
     );
-    await installer.execute("create-aoijs-bot --version");
   }
 })();
