@@ -20,10 +20,16 @@ Install the tool globally via npm:
 npm install -g create-aoijs-bot
 ```
 
-or simply run:
+Alternatives:
 
 ```bash
 npx create-aoijs-bot
+```
+
+or
+
+```bash
+npm create aoijs-bot
 ```
 
 ## Usage
