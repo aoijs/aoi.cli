@@ -7,17 +7,15 @@ const client = new AoiClient({
   database: {
     type: "aoi.db",
     db: require("@akarui/aoi.db"),
+    dbType: "KeyValue",
     tables: ["main"],
-    path: "./database/",
-    extraOptions: {
-      dbType: "KeyValue",
-    },
+    securityKey: "a-32-characters-long-string-here",
   },
 });
 
 client.command({
   name: "ping",
-  code: `Pong! $pingMS`
+  code: `Pong! $pingMS`,
 });
 
 // Add more commands or event handlers here
