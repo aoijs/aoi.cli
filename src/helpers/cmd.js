@@ -17,15 +17,16 @@ export async function execute(cmd) {
 export async function install(pkg, text = `Installing ${chalk.bold(pkg)}`, global = false) {
   const spinner = ora(text).start();
 
-  if (checkNodeJS(process.versions.node, "16.9.0") === -1) {
-    spinner.fail(`Your Node.js version (${chalk.cyan(process.versions.node)}) is below the recommended version (${chalk.cyan("16.9.0")}).`);
+  if (checkNodeJS(process.versions.node, "20.0.0") === -1) {
+    spinner.fail(`Your Node.js version (${chalk.cyan(process.versions.node)}) is below the recommended version (${chalk.cyan("20.0.0")}).`);
     process.exit(1);
   }
 
   try {
-    await exec(`npm install ${pkg} ${global === true ? "-g" : "--save"}`, { stdio: ["ignore", "pipe", "ignore"]  });
+    await exec(`npm install ${pkg} ${global === true ? "-g" : ""}`, { stdio: ["ignore", "pipe", "ignore"]  });
     spinner.succeed(`Installed ${chalk.bold.cyan(pkg)}`);
   } catch (error) {
+    //console.log(error)
     spinner.fail(`Failed to install ${chalk.bold.cyan(pkg)}`);
   }
 }

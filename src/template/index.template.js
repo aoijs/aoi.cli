@@ -9,7 +9,7 @@ const client = new AoiClient({
     db: require("@akarui/aoi.db"),
     dbType: "KeyValue",
     tables: ["main"],
-    securityKey: "a-32-characters-long-string-here",
+    securityKey: "{KEY}",
   },
 });
 

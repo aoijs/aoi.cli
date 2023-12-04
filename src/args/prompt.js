@@ -5,10 +5,12 @@ import fs from "fs";
 import * as installer from "../../src/helpers/cmd.js";
 import path from "path";
 import chalk from "chalk";
+import crypto from "crypto";
 import { fileURLToPath } from "url";
 import os from "os";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const key = crypto.randomBytes(16).toString("hex");
 
 async function promptUser() {
   const questions = [
@@ -77,7 +79,8 @@ async function modifyIndex(answers, directoryPath) {
   let mainFileContent = fs
     .readFileSync(path.join(__dirname, "../template/index.template.js"), "utf8")
     .replace(/{TOKEN}/g, isreplit === "Yes" ? "" : token)
-    .replace(/{PREFIX}/g, isreplit === "Yes" ? "" : prefix);
+    .replace(/{PREFIX}/g, isreplit === "Yes" ? "" : prefix)
+    .replace(/{KEY}/g, key);
 
   let shardingFileContent = fs
     .readFileSync(
@@ -85,7 +88,8 @@ async function modifyIndex(answers, directoryPath) {
       "utf8"
     )
     .replace(/{TOKEN}/g, isreplit === "Yes" ? "" : token)
-    .replace(/{PREFIX}/g, isreplit === "Yes" ? "" : prefix);
+    .replace(/{PREFIX}/g, isreplit === "Yes" ? "" : prefix)
+    .replace(/{KEY}/g, key);
 
   let handlerFileContent = fs
     .readFileSync(
@@ -93,7 +97,8 @@ async function modifyIndex(answers, directoryPath) {
       "utf8"
     )
     .replace(/{TOKEN}/g, isreplit === "Yes" ? "" : token)
-    .replace(/{PREFIX}/g, isreplit === "Yes" ? "" : prefix);
+    .replace(/{PREFIX}/g, isreplit === "Yes" ? "" : prefix)
+    .replace(/{KEY}/g, key);
 
   let handlerExampleContent = fs.readFileSync(
     path.join(__dirname, "../template/handler-example.template.js"),
