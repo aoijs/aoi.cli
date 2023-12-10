@@ -50,3 +50,5 @@ Follow the prompts to select your desired bot setup, and you're ready to go!
 ### Command Arguments
 
 You can display all available args with `create-aoijs-bot --help`.
+
+![preview](.github/preview-terminal.gif)
