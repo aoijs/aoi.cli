@@ -1,35 +1,28 @@
-# aoi.js CLI (unofficial)
+# aoi.js CLI 
 
-The aoi.js Bot Template Builder CLI is a command-line tool designed to simplify and expedite the process of generating bot templates for aoi.js Discord bots. This tool helps developers quickly set up the foundation for their aoi.js-powered Discord bots by creating boilerplate code and installing essential dependencies.
+aoi.js CLI is used to create and setup your project with ease! Get started by following the steps below.
 
 ## Features
 
-- **Template Selection:** Choose from various bot setup options including Default, Default with Handler, and Sharding.
-- **Customization:** Input your bot's token, command prefix, and additional preferences to personalize the generated template.
+- **Template Selection:** Choose from various bot setup options including the Default setup, a setup with handler, a setup using sharding or a setup using aoi.js extensions!
 - **Package Installation:** Automatically installs necessary packages such as aoi.js and aoi.music based on user preferences.
-- **Template Creation:** Generates the bot's main index file and optional files like sharding setups or command handlers.
 - **Easy Setup:** Simplifies the process for beginners and saves time for experienced developers.
 
 ## Installation
 
 To use the aoi.js CLI, ensure you have [Node.js](https://nodejs.org/) installed on your system.
 
-Install the tool globally via npm:
 
-```bash
-npm install -g create-aoijs-bot
-```
-
-Alternatives:
-
-```bash
-npx create-aoijs-bot
-```
-
-or
+Get started by executing:
 
 ```bash
 npm create aoijs-bot
+```
+
+You can also install the tool globally via npm:
+
+```bash
+npm install -g create-aoijs-bot
 ```
 
 ## Usage
@@ -37,25 +30,23 @@ npm create aoijs-bot
 To generate a bot template, open your terminal and run the following command:
 
 ```bash
+npm create aoijs-bot
+```
+
+or with npx:
+
+```bash
 npx create-aoijs-bot
 ```
 
-If you ran the install command via `npm` you can also execute it directly:
+If you ran the install command via `npm install` you can also execute it directly:
 
 ```bash
 create-aoijs-bot
 ```
 
-Follow the on-screen prompts to select your desired bot setup, input configuration details, and initiate the template generation process.
+Follow the prompts to select your desired bot setup, and you're ready to go!
 
 ### Command Arguments
 
 You can display all available args with `create-aoijs-bot --help`.
-
-## Contribution
-
-Contributions are welcome! If you encounter any issues, have suggestions, or want to add features, please open an issue or submit a pull request on [GitHub](https://github.com/faf4a/create-aoijs-bot).
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
