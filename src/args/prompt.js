@@ -17,41 +17,51 @@ async function promptUser() {
     {
       type: "input",
       name: "directory",
-      message: "Project Directory (press enter to skip):",
+      message: `Project Directory: `,
       default: "./",
+      suffix: `${chalk.gray("(Press Enter to Skip)")} `,
+      prefix: `\n\r${chalk.blue("> ")}`,
     },
     {
       type: "input",
       name: "token",
-      message: "Discord Bot Token (press enter to skip):",
+      message: "Discord Bot Token: ",
       default: "",
+      suffix: `${chalk.gray("(Press Enter to Skip)")} `,
+      prefix: `\n\r${chalk.blue("> ")}`,
     },
     {
       type: "input",
       name: "prefix",
-      message: "Discord Bot Prefix (press enter to skip):",
+      message: "Discord Bot Prefix: ",
       default: "!",
+      suffix: `${chalk.gray("(Press Enter to Skip)")}`,
+      prefix: `\n\r${chalk.blue("> ")}`,
     },
     {
       type: "list",
       name: "setup",
-      message: "Template you want to use: (press enter to skip)",
+      message: "Template you want to use: ",
       choices: ["Starter", "Advanced", "Sharding"],
       default: "Starter",
+      suffix: `${chalk.gray("(Press Enter to Skip)")}`,
+      prefix: `\n\r${chalk.blue("> ")}`,
     },
     {
       type: "confirm",
       name: "install-deps",
-      message:
-        "Do you want to install all needed packages (press enter to skip):",
+      message: "Do you want to install all needed packages: ",
       default: "Yes",
+      suffix: `${chalk.gray("(Press Enter to Skip)")}`,
+      prefix: `\n\r${chalk.blue("> ")}`,
     },
     {
       type: "confirm",
       name: "install-aoimusic",
-      message:
-        "Do you want to implement music in your bot (press enter to skip):",
+      message: "Do you want to implement music in your bot: ",
       default: "Yes",
+      suffix: `${chalk.gray("(Press Enter to Skip)")}`,
+      prefix: `\n\r${chalk.blue("> ")}`,
     },
   ];
 
@@ -59,8 +69,9 @@ async function promptUser() {
     questions.splice(1, 0, {
       type: "confirm",
       name: "isreplit",
-      message: "Are you using replit? (press enter to skip):",
+      message: "Are you using replit?:",
       default: "No",
+      prefix: `\n\r${chalk.blue("> ")}`,
     });
   }
 
@@ -155,13 +166,13 @@ async function installPackage(answers) {
   await installer.execute("npm init -y");
 
   if (answers["install-deps"]) {
-    console.log("\n\rInstalling now all needed packages...");
+    console.log(`\n\r${chalk.bgYellow(" install ")} Installing now all needed packages...`);
     await installer.install("aoi.js");
   }
 
   if (answers["install-aoimusic"]) {
     await installer.install("@akarui/aoi.music");
-    console.log("\n\rInstalling now all needed dependencies for aoi.music...");
+    console.log(`\n\r${chalk.bgYellow(" deps ")} Installing now all needed dependencies for aoi.music...`);
     await installer.install("opusscript", "Installing opusscript");
     await installer.install("ffmpeg-static", "Installing ffmpeg-static");
   }
@@ -197,17 +208,21 @@ try {
   if (answers.isreplit) {
     console.log(
       `\n\r${chalk.bgYellow(
-        " WARN "
-      )} You are using replit, so you need to add your token and prefix in a enviorment variable called ${chalk.gray(
+        " warn "
+      )} You are using replit, so you need to add your token and prefix in a environment variable called ${chalk.gray(
         "token"
-      )} and ${chalk.gray("prefix")}. \n\r Don't know what to do? Check out their documentation: ${chalk.underline("https://docs.replit.com/programming-ide/workspace-features/secrets")}`
+      )} and ${chalk.gray(
+        "prefix"
+      )}. \n\r Don't know what to do? Check out their documentation: ${chalk.underline(
+        "https://docs.replit.com/programming-ide/workspace-features/secrets"
+      )}`
     );
   }
 
   if (answers.token === "" && !answers.isreplit)
     console.log(
       `\n\r${chalk.bgYellow(
-        " WARN "
+        " warn "
       )} You didn't provide a token, so you need to add your token in your ${
         answers.setup === "Sharding"
           ? `${chalk.gray("index.js")} & ${chalk.gray("sharding.js")}`
@@ -216,7 +231,9 @@ try {
     );
 
   console.log(
-    `\n\rYou can now start your bot using the command ${chalk.gray("\`node .\`")}\n\rIf you have any issues feel free to join our Discord (${chalk.underline(
+    `\n\rYou can now start your bot using the command ${chalk.gray(
+      "`node .`"
+    )}\n\rIf you have any issues feel free to join our Discord (${chalk.underline(
       "https://aoi.js.org/invite"
     )}) or check our documentation (${chalk.underline("https://aoi.js.org/")}).`
   );

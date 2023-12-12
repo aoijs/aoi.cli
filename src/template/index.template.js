@@ -1,4 +1,5 @@
 const { AoiClient } = require("aoi.js");
+
 const client = new AoiClient({
   token: "{TOKEN}",
   prefix: "{PREFIX}",

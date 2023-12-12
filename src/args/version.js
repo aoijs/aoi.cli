@@ -7,9 +7,6 @@ import chalk from "chalk";
 import fs from "fs";
 import path from "path";
 import inquirer from "inquirer";
-import PressToContinuePrompt from "inquirer-press-to-continue";
-
-inquirer.registerPrompt("press-to-continue", PressToContinuePrompt);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 let latestVersion;
@@ -32,27 +29,30 @@ const checkpkgoutdated = async (pkg) => {
 };
 
 const continueInstall = async () => {
-  const { key: enterKey } = await inquirer.prompt({
-    name: "key",
-    type: "press-to-continue",
-    enter: true,
-    message: "Press Enter to continue...",
-  });
+  const response = await inquirer.prompt([
+    {
+      name: "continue",
+      type: "list",
+      message: `A newer version (${chalk.cyan("v" + latestVersion)}) is available to download, do you wish to continue?`,
+      choices: ["No", "Yes"],
+      prefix: `\n\r${chalk.bgYellow(" update ")}`
+    },
+  ]);
+  return response.continue === "Yes";
 };
 
 (async () => {
   if (await checkpkgoutdated("create-aoijs-bot")) {
-    console.log(
-      `A newer version (${chalk.cyan(
-        "v" + latestVersion
-      )}) is available to download, do you wish to continue?`
-    );
-    await continueInstall();
-    await installer.install("create-aoijs-bot@latest", `Updating ${chalk.bold("create-aoijs-bot")}`,  true);
-    console.log(
-      `\n\rSuccessfully updated to the latest version (${chalk.cyan(
-        "v" + latestVersion
-      )}).`
-    );
+    const shouldContinue = await continueInstall();
+    if (shouldContinue) {
+      await installer.install("create-aoijs-bot@latest", `Updating ${chalk.bold("create-aoijs-bot")}`,  true);
+      console.log(
+        `\n\rSuccessfully updated to the latest version (${chalk.cyan(
+          "v" + latestVersion
+        )}).`
+      );
+    } else {
+      console.log("Cancelled action.")
+    }
   }
 })();

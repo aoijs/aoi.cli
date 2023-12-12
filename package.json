@@ -1,6 +1,6 @@
 {
   "name": "create-aoijs-bot",
-  "version": "1.3.7",
+  "version": "1.3.8",
   "description": "CLI Tool for easily creating an aoi.js Discord Bot.",
   "author": "Faf4a",
   "type": "module",
@@ -13,9 +13,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Faf4a/create-aoijs-bot.git"
-  },
-  "scripts": {
-    "test": "mocha --recursive ./bin/index.js && exit 1"
   },
   "keywords": [
     "CLI",
@@ -30,17 +27,15 @@
   ],
   "dependencies": {
     "inquirer": "^9.2.12",
-    "inquirer-press-to-continue": "^1.2.0",
     "ora": "^7.0.1",
     "path": "^0.12.7"
-  },
-  "devDependencies": {
-    "mocha": "^9.1.3",
-    "aoi.js": "^6.6.1",
-    "@akarui/aoi.db": "^2.0.0"
   },
   "bugs": {
     "url": "https://github.com/Faf4a/create-aoijs-bot/issues"
   },
-  "homepage": "https://github.com/Faf4a/create-aoijs-bot#readme"
+  "homepage": "https://github.com/Faf4a/create-aoijs-bot#readme",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }

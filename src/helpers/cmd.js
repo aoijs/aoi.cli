@@ -1,13 +1,13 @@
 import { promisify } from "util";
-import { exec as execCallback } from "child_process";
+import { exec } from 'child_process';
 import ora from "ora";
 import chalk from "chalk";
 
-const exec = promisify(execCallback);
+const execAsync = promisify(exec);
 
 export async function execute(cmd) {
   try {
-    await exec(cmd, { stdio: "ignore" });
+    await execAsync(cmd);
   } catch {
     console.error(`\n\r${chalk.red("✖")} Failed to execute ${chalk.cyan(cmd)}.`);
     process.exit(1);
@@ -16,6 +16,8 @@ export async function execute(cmd) {
 
 export async function install(pkg, text = `Installing ${chalk.bold(pkg)}`, global = false) {
   const spinner = ora(text).start();
+  let installs;
+  try { installs = JSON.parse((await execAsync(`npm list --depth=0 ${pkg} --json`)).stdout) } catch (e) { installs = {} };
 
   if (checkNodeJS(process.versions.node, "20.0.0") === -1) {
     spinner.fail(`Your Node.js version (${chalk.cyan(process.versions.node)}) is below the recommended version (${chalk.cyan("20.0.0")}).`);
@@ -23,10 +25,13 @@ export async function install(pkg, text = `Installing ${chalk.bold(pkg)}`, globa
   }
 
   try {
-    await exec(`npm install ${pkg} ${global === true ? "-g" : ""}`, { stdio: ["ignore", "pipe", "ignore"]  });
-    spinner.succeed(`Installed ${chalk.bold.cyan(pkg)}`);
+    if (installs?.dependencies && installs?.dependencies[pkg]) {
+      spinner.info(`Up-to-Date ${chalk.bold(pkg + chalk.grey(" v" + installs.dependencies[pkg].version))}`);
+    } else {
+      await execAsync(`npm install ${pkg} ${global === true ? "-g" : ""}`);
+      spinner.succeed(`Installed ${chalk.bold.cyan(pkg)}`);
+    }
   } catch (error) {
-    //console.log(error)
     spinner.fail(`Failed to install ${chalk.bold.cyan(pkg)}`);
   }
 }
