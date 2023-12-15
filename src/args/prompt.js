@@ -20,7 +20,7 @@ async function promptUser() {
       message: `Project Directory: `,
       default: "./",
       suffix: `${chalk.gray("(Press Enter to Skip)")} `,
-      prefix: `\n\r${chalk.blue("> ")}`,
+      prefix: `\n\r${chalk.blueBright("> ")}`,
     },
     {
       type: "input",
@@ -28,7 +28,7 @@ async function promptUser() {
       message: "Discord Bot Token: ",
       default: "",
       suffix: `${chalk.gray("(Press Enter to Skip)")} `,
-      prefix: `\n\r${chalk.blue("> ")}`,
+      prefix: `\n\r${chalk.blueBright("> ")}`,
     },
     {
       type: "input",
@@ -36,7 +36,7 @@ async function promptUser() {
       message: "Discord Bot Prefix: ",
       default: "!",
       suffix: `${chalk.gray("(Press Enter to Skip)")}`,
-      prefix: `\n\r${chalk.blue("> ")}`,
+      prefix: `\n\r${chalk.blueBright("> ")}`,
     },
     {
       type: "list",
@@ -45,7 +45,7 @@ async function promptUser() {
       choices: ["Starter", "Advanced", "Sharding"],
       default: "Starter",
       suffix: `${chalk.gray("(Press Enter to Skip)")}`,
-      prefix: `\n\r${chalk.blue("> ")}`,
+      prefix: `\n\r${chalk.blueBright("> ")}`,
     },
     {
       type: "confirm",
@@ -53,7 +53,7 @@ async function promptUser() {
       message: "Do you want to install all needed packages: ",
       default: "Yes",
       suffix: `${chalk.gray("(Press Enter to Skip)")}`,
-      prefix: `\n\r${chalk.blue("> ")}`,
+      prefix: `\n\r${chalk.blueBright("> ")}`,
     },
     {
       type: "confirm",
@@ -61,7 +61,7 @@ async function promptUser() {
       message: "Do you want to implement music in your bot: ",
       default: "Yes",
       suffix: `${chalk.gray("(Press Enter to Skip)")}`,
-      prefix: `\n\r${chalk.blue("> ")}`,
+      prefix: `\n\r${chalk.blueBright("> ")}`,
     },
   ];
 
@@ -71,7 +71,7 @@ async function promptUser() {
       name: "isreplit",
       message: "Are you using replit?:",
       default: "No",
-      prefix: `\n\r${chalk.blue("> ")}`,
+      prefix: `\n\r${chalk.blueBright("> ")}`,
     });
   }
 
@@ -166,13 +166,13 @@ async function installPackage(answers) {
   await installer.execute("npm init -y");
 
   if (answers["install-deps"]) {
-    console.log(`\n\r${chalk.bgYellow(" install ")} Installing now all needed packages...`);
+    console.log(`\n\r${chalk.black.bgYellow(" install ")} Installing now all needed packages...`);
     await installer.install("aoi.js");
   }
 
   if (answers["install-aoimusic"]) {
     await installer.install("@akarui/aoi.music");
-    console.log(`\n\r${chalk.bgYellow(" deps ")} Installing now all needed dependencies for aoi.music...`);
+    console.log(`\n\r${chalk.black.bgYellow(" deps ")} Installing now all needed dependencies for aoi.music...`);
     await installer.install("opusscript", "Installing opusscript");
     await installer.install("ffmpeg-static", "Installing ffmpeg-static");
   }
@@ -207,7 +207,7 @@ try {
 
   if (answers.isreplit) {
     console.log(
-      `\n\r${chalk.bgYellow(
+      `\n\r${chalk.black.bgYellow(
         " warn "
       )} You are using replit, so you need to add your token and prefix in a environment variable called ${chalk.gray(
         "token"
@@ -221,7 +221,7 @@ try {
 
   if (answers.token === "" && !answers.isreplit)
     console.log(
-      `\n\r${chalk.bgYellow(
+      `\n\r${chalk.black.bgYellow(
         " warn "
       )} You didn't provide a token, so you need to add your token in your ${
         answers.setup === "Sharding"

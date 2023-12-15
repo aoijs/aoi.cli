@@ -3,7 +3,7 @@ const { AoiClient } = require("aoi.js");
 const client = new AoiClient({
   token: "{TOKEN}",
   prefix: "{PREFIX}",
-  intents: ["Guilds", "GuildMessages", "GuildVoiceStates", "GuildMembers"],
+  intents: ["Guilds", "GuildMessages", "GuildVoiceStates", "MessageContent", "GuildMembers"],
   events: ["onInteractionCreate", "onMessage"],
   database: {
     type: "aoi.db",

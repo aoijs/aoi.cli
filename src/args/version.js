@@ -35,7 +35,7 @@ const continueInstall = async () => {
       type: "list",
       message: `A newer version (${chalk.cyan("v" + latestVersion)}) is available to download, do you wish to continue?`,
       choices: ["No", "Yes"],
-      prefix: `\n\r${chalk.bgYellow(" update ")}`
+      prefix: `\n\r${chalk.black.bgYellow(" update ")}`
     },
   ]);
   return response.continue === "Yes";
