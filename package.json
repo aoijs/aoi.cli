@@ -1,5 +1,5 @@
 {
-  "name": "aoijs",
+  "name": "aoijs-bot",
   "version": "0.0.1",
   "description": "CLI Tool for easily creating an aoi.js Discord Bot.",
   "type": "module",

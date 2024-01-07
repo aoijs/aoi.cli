@@ -16,13 +16,13 @@ To use the aoi.js CLI, ensure you have [Node.js](https://nodejs.org/) installed 
 Get started by executing:
 
 ```bash
-npm create aoijs
+npm create aoijs-bot
 ```
 
 You can also install the tool globally via npm:
 
 ```bash
-npm install -g aoijs
+npm install -g aoijs-bot
 ```
 
 ## Usage
@@ -30,25 +30,25 @@ npm install -g aoijs
 To generate a bot template, open your terminal and run the following command:
 
 ```bash
-npm create aoijs
+npm create aoijs-bot
 ```
 
 or with npx:
 
 ```bash
-npx aoijs
+npx aoijs-bot
 ```
 
 If you ran the install command via `npm install` you can also execute it directly:
 
 ```bash
-aoijs
+aoijs-bot
 ```
 
 Follow the prompts to select your desired bot setup, and you're ready to go!
 
 ### Command Arguments
 
-You can display all available args with `aoijs --help`.
+You can display all available args with `aoijs-bot --help`.
 
 ![preview](.github/preview-terminal.gif)
