@@ -1,0 +1,9 @@
+const { ClientShard } = require("aoi.js");
+
+const sharder = new ClientShard("./index.js", {
+  token: "Discord Bot Token",
+  totalShards: 3,
+});
+
+sharder.on("shardCreate", (shard) => console.log(`Launched shard ${shard.id}`));
+sharder.startProcess();

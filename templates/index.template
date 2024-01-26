@@ -1,0 +1,61 @@
+---const { AoiClient, LoadCommands } = require("aoi.js");
+---const { AoiVoice, PlayerEvents, PluginName, Cacher, Filter } = require("@akarui/aoi.music");
+---const { Panel } = require("@akarui/aoi.panel");
+---const { InviteManager } = require("@akarui/aoi.invite");
+---
+const client = new AoiClient({
+  token: "Discord Bot Token",
+  prefix: "Discord Bot Prefix",
+  intents: [{intents}],
+  events: ["onMessage", "onInteractionCreate"],
+  database: {
+    type: "aoi.db",
+    db: require("@akarui/aoi.db"),
+    dbType: "KeyValue",
+    tables: ["main"],
+    securityKey: "{securityKey}",
+  }
+});
+---
+const voice = new AoiVoice(client, {
+    searchOptions: {
+        soundcloudClientId: "Soundcloud ID", // optional
+        youtubegl: "US",
+    },
+    requestOptions: {
+        offsetTimeout: 0,
+        soundcloudLikeTrackLimit: 200,
+    },
+});
+
+voice.addPlugin(PluginName.Cacher, new Cacher("memory"));
+
+voice.addPlugin(
+    PluginName.Filter,
+    new Filter({
+        filterFromStart: false,
+    }),
+);
+
+voice.bindExecutor(client.functionManager.interpreter);
+---
+const panel = new Panel({
+  port: 3000,
+  client: client,
+});
+
+panel.loadAPI({
+  auth: "{authKey}",
+});
+
+panel.loadGUI({
+  username: ["username 1", "username 2"],
+  password: ["Password 1", "Password 2"],
+});
+---
+new InviteManager(client, {
+    sk: "a-32-characters-long-string-here",
+}, ["inviteJoin", "inviteLeave"]);
+---
+const loader = new LoadCommands(client);
+loader.load(client.cmd, "./commands")
