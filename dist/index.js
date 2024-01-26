@@ -2,20 +2,20 @@
 const input = process.argv;
 if (input.includes("upgrade")) {
     //@ts-ignore
-    import("../dist/upgrade.js");
+    import("./upgrade.js");
 }
 else if (input.includes("create")) {
     // create new aoi.js project
     //@ts-ignore
-    import("../dist/create.js");
+    import("./create.js");
 }
 else if (input.includes("help")) {
     // list all available commands and current version
     //@ts-ignore
-    import("../dist/help.js");
+    import("./help.js");
 }
 else {
     // fallback, list all available commands and current version
     //@ts-ignore
-    import("../dist/help.js");
+    import("./help.js");
 }
