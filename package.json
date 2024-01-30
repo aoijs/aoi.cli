@@ -3,6 +3,7 @@
   "description": "aoijs cli tool",
   "author": "AkaruiDevelopment",
   "version": "2.0.0",
+  "preferGlobal": true,
   "type": "module",
   "main": "./index.mjs",
   "bin": {
