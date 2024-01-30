@@ -1,7 +1,11 @@
 import chalk from "chalk";
-import fs from "fs";
-// get latest package version
-const { version } = JSON.parse(fs.readFileSync(new URL("../package.json", import.meta.url).pathname.slice(1), "utf-8"));
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import fs from 'fs';
+const __filename = fileURLToPath(import.meta.url);
+dirname(__filename);
+const packageJsonPath = new URL('../package.json', import.meta.url);
+const { version } = JSON.parse(fs.readFileSync(fileURLToPath(packageJsonPath), 'utf-8'));
 console.log(`
 ${chalk.cyan("@akarui/aoi.cli")} ${chalk.cyan.bold(`v${version}`)}
 

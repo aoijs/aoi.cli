@@ -19,7 +19,6 @@
     "type": "git",
     "url": "https://github.com/AkaruiDevelopment/create-aoijs-bot.git"
   },
-  "global": true,
   "keywords": [
     "aoijs",
     "cli"
