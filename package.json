@@ -8,12 +8,22 @@
   "bin": {
     "aoijs": "./index.mjs"
   },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "templates"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/AkaruiDevelopment/create-aoijs-bot.git"
   },
-  "keywords": ["aoijs", "cli"],
-    "engines": {
+  "global": true,
+  "keywords": [
+    "aoijs",
+    "cli"
+  ],
+  "engines": {
     "node": ">=18.14.1"
   },
   "license": "ISC",
@@ -21,5 +31,8 @@
     "chalk": "^5.3.0",
     "execa": "^8.0.1",
     "ora": "^8.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.10"
   }
 }
