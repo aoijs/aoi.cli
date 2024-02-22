@@ -1,12 +1,12 @@
 import { checkPackageManagerType } from "./utils/packageManager.js";
 import { fileURLToPath } from "url";
-import { existsSync, readFileSync, mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, mkdir, writeFileSync } from "node:fs";
 import { wait } from "./utils/functions.js";
 import { execa } from "execa";
-import path from "node:path";
 import chalk from "chalk";
 import crypto from "crypto";
 import ora from "ora";
+import * as path from "node:path";
 const args = process.argv.slice(2);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const includeMusic = args.includes("--music");
@@ -15,25 +15,32 @@ const includeInvite = args.includes("--invite");
 const useSharding = args.includes("--sharding");
 const noInstall = args.includes("--no-install");
 let spinner;
-const packageManager = checkPackageManagerType();
 const location = path.join(__dirname, "..", args.indexOf("--dir") === -1 ? "./aoijs" : args[args.indexOf("--dir") + 1]);
-await wait(2500);
-async function generateTemplate() {
+const packageManager = checkPackageManagerType(location);
+await wait(2000);
+async function generateTemplate(loc) {
     spinner.stop().clear();
     spinner = ora("Checking if directory exists..").start();
     await wait(2000);
-    if (!existsSync(location)) {
-        spinner.stop().clear();
-        spinner = ora(`Directory doesn't exist, creating..`).start();
-        await wait(2000);
-        spinner.stop().clear();
-        console.log("• Created directory.");
-        spinner = ora("Generating template...").start();
+    if (!existsSync(loc)) {
+        const spinner = ora(`Directory doesn't exist, creating..`).start();
         try {
-            mkdirSync(location, { recursive: true });
+            await new Promise((resolve, reject) => {
+                mkdir(loc, { recursive: true }, (err) => {
+                    if (err) {
+                        spinner.stop().clear();
+                        console.error("\n\r• Failed to create directory inside: " + chalk.cyan(location));
+                        reject(err);
+                    }
+                    else {
+                        spinner.stop().clear();
+                        console.log("• Created directory.");
+                        resolve();
+                    }
+                });
+            });
         }
-        catch {
-            spinner.stop().clear();
+        catch (error) {
             console.error("\n\r• Failed to create directory inside: " + chalk.cyan(location));
             process.exit(1);
         }
@@ -68,12 +75,14 @@ async function generateTemplate() {
     spinner = ora("Creating template...").start();
     await wait(2000);
     if (useSharding) {
+        //@ts-ignore
         writeFileSync(path.join(location, "./sharding.js"), readFileSync(path.join(__dirname, "../templates/sharding.template"), "utf-8"));
         spinner.stop().clear();
         console.log("• Created sharding template.");
         spinner = ora("Creating template...").start();
         await wait(2000);
     }
+    //@ts-ignore
     writeFileSync(path.join(location, "./index.js"), setup.join(""));
     spinner.stop().clear();
     console.log("• Created template.");
@@ -83,7 +92,7 @@ This command will create a template for you to start your bot.
 
 ${chalk.bgCyan(" create ")}`);
 spinner = ora("Creating template...").start();
-await generateTemplate();
+await generateTemplate(location);
 console.log(`
 ${chalk.bgCyan(" install ")}`);
 spinner = ora("Installing dependencies...").start();
@@ -139,3 +148,4 @@ ${chalk.bgGreen(" done ")}
 You're now ready to go, simply switch to the directory and run ${chalk.cyan("node index.js")}
 
 Happy coding! 🎉`);
+//# sourceMappingURL=create.js.map

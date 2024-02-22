@@ -3,11 +3,11 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import fs from 'fs';
 
-const __filename = fileURLToPath(import.meta.url);
+const __filename: string = fileURLToPath(import.meta.url);
 dirname(__filename);
 
-const packageJsonPath = new URL('../package.json', import.meta.url);
-const { version } = JSON.parse(fs.readFileSync(fileURLToPath(packageJsonPath), 'utf-8'));
+const packageJsonPath: URL = new URL('../package.json', import.meta.url);
+const { version }: { version: string } = JSON.parse(fs.readFileSync(fileURLToPath(packageJsonPath), 'utf-8'));
 
 console.log(`
 ${chalk.cyan("@akarui/aoi.cli")} ${chalk.cyan.bold(`v${version}`)}

@@ -3,3 +3,4 @@ export async function wait(time) {
         setTimeout(resolve, time);
     });
 }
+//# sourceMappingURL=functions.js.map

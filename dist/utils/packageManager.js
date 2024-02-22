@@ -1,15 +1,22 @@
 import { execa } from "execa";
 import { existsSync } from "node:fs";
 import chalk from "chalk";
+import path from "path";
+import ora from "ora";
+let spinner;
 export async function installPackage(packageManager, _package) {
     const command = packageManager === "yarn" ? "add" : "install";
     try {
+        spinner = ora(`Upgrading ${chalk.cyan(_package)}`).start();
         await execa(packageManager, [command, _package + "@latest"]);
     }
     catch (error) {
         console.error("• Failed to update " + _package + " using " + chalk.cyan(packageManager));
+        console.error(`If you are using npm, try running: ${chalk.cyan(`npm install ${_package} @latest`)} manually.`);
+        process.exit(1);
     }
     finally {
+        spinner.stop().clear();
         console.log(`• Successfully updated ${_package} to latest.`);
     }
 }
@@ -22,22 +29,24 @@ export async function uninstallPackage(packageManager, _package) {
         console.error("• Failed to uninstall " + _package + " using " + chalk.cyan(packageManager));
     }
 }
-export function checkPackageManagerType() {
-    if (!existsSync(new URL("../../package.json", import.meta.url).pathname.slice(1)))
-        return console.error("• No package.json found.");
-    if (existsSync(new URL("../../package-lock.json", import.meta.url).pathname.slice(1))) {
+export function checkPackageManagerType(loc) {
+    if (!existsSync(path.join(loc, "package.json"))) {
+        console.error("• No package.json found.");
+    }
+    ;
+    if (existsSync(path.join(loc, "package-lock.json"))) {
         // check if package manager is npm
         return "npm";
     }
-    else if (existsSync(new URL("../../pnpm-lock.yaml", import.meta.url).pathname.slice(1))) {
+    else if (existsSync(path.join(loc, "pnpm-lock.yml"))) {
         // check if package manager is pnpm
         return "pnpm";
     }
-    else if (existsSync(new URL("../../bun.lockb", import.meta.url).pathname.slice(1))) {
+    else if (existsSync(path.join(loc, "bun.lockb"))) {
         // check if package manager is bun
         return "bun";
     }
-    else if (existsSync(new URL("../../yarn.lock", import.meta.url).pathname.slice(1))) {
+    else if (existsSync(path.join(loc, "yarn.lock"))) {
         // check if package manager is yarn
         return "yarn";
     }
@@ -46,3 +55,4 @@ export function checkPackageManagerType() {
         return "npm";
     }
 }
+//# sourceMappingURL=packageManager.js.map

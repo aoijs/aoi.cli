@@ -1,14 +1,14 @@
 import { installPackage, uninstallPackage, checkPackageManagerType } from "./utils/packageManager.js"
 import { fileURLToPath } from "url";
-import { existsSync, readFileSync, mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, mkdir, writeFileSync } from "node:fs";
 import { wait } from "./utils/functions.js";
 import { execa } from "execa";
-import path from "node:path"
 import chalk from "chalk";
 import crypto from "crypto";
 import ora, { Ora } from "ora";
+import * as path from "node:path";
 
-const args = process.argv.slice(2);
+const args: string[] = process.argv.slice(2);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const includeMusic = args.includes("--music");
@@ -19,26 +19,32 @@ const noInstall = args.includes("--no-install");
 
 let spinner: Ora;
 
-const packageManager = checkPackageManagerType();
-const location = path.join(__dirname, "..", args.indexOf("--dir") === -1 ? "./aoijs" : args[args.indexOf("--dir") + 1]);
+const location: string = path.join(__dirname, "..", args.indexOf("--dir") === -1 ? "./aoijs" : args[args.indexOf("--dir") + 1]);
+const packageManager = checkPackageManagerType(location);
 
-await wait(2500);
+await wait(2000);
 
-async function generateTemplate() {
+async function generateTemplate(loc: string): Promise<void> {
     spinner.stop().clear()
     spinner = ora("Checking if directory exists..").start();
     await wait(2000);
-    if (!existsSync(location)) {
-        spinner.stop().clear()
-        spinner = ora(`Directory doesn't exist, creating..`).start();
-        await wait(2000);
-        spinner.stop().clear()
-        console.log("• Created directory.")
-        spinner = ora("Generating template...").start();
+    if (!existsSync(loc)) {
+        const spinner = ora(`Directory doesn't exist, creating..`).start();
         try {
-            mkdirSync(location, { recursive: true });
-        } catch {
-            spinner.stop().clear()
+            await new Promise<void>((resolve, reject) => {
+                mkdir(loc, { recursive: true }, (err) => {
+                    if (err) {
+                        spinner.stop().clear();
+                        console.error("\n\r• Failed to create directory inside: " + chalk.cyan(location));
+                        reject(err);
+                    } else {
+                        spinner.stop().clear();
+                        console.log("• Created directory.");
+                        resolve();
+                    }
+                });
+            });
+        } catch (error) {
             console.error("\n\r• Failed to create directory inside: " + chalk.cyan(location));
             process.exit(1);
         }
@@ -49,9 +55,9 @@ async function generateTemplate() {
 
     await wait(2500);
     
-    const setup = [];
+    const setup: string[] = [];
     
-    let _default = readFileSync(path.join(__dirname, "../templates/index.template"), "utf-8");
+    let _default: string = readFileSync(path.join(__dirname, "../templates/index.template"), "utf-8");
     
     _default = _default.replace("{securityKey}", crypto.randomBytes(16).toString("hex")).replace("{authKey}", crypto.randomBytes(16).toString("hex"));
 
@@ -76,6 +82,7 @@ async function generateTemplate() {
     await wait(2000);
 
     if (useSharding) {
+        //@ts-ignore
         writeFileSync(path.join(location, "./sharding.js"), readFileSync(path.join(__dirname, "../templates/sharding.template"), "utf-8"));
         spinner.stop().clear();
         console.log("• Created sharding template.")
@@ -83,6 +90,7 @@ async function generateTemplate() {
         await wait(2000);
     }
 
+    //@ts-ignore
     writeFileSync(path.join(location, "./index.js"), setup.join(""));
 
     spinner.stop().clear();
@@ -97,7 +105,7 @@ ${chalk.bgCyan(" create ")}`);
 
 spinner = ora("Creating template...").start();
 
-await generateTemplate();
+await generateTemplate(location);
 
 console.log(`
 ${chalk.bgCyan(" install ")}`)

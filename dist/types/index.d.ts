@@ -1,1 +1,2 @@
-declare const input: string[];
+export {};
+//# sourceMappingURL=index.d.ts.map

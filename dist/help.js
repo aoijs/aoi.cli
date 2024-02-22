@@ -31,3 +31,4 @@ ${chalk.cyan("@akarui/aoi.cli")} ${chalk.cyan.bold(`v${version}`)}
         ${chalk.cyan("aoijs help")}
             ${chalk.gray("Shows this help message.")}
 `);
+//# sourceMappingURL=help.js.map
