@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const input: string[] = process.argv;
-const loc: string = path.join(__dirname, "..", input.indexOf("--dir") === -1 ? "./aoijs" : input[input.indexOf("--dir") + 1])
+const loc: string = path.join(process.cwd(), input.indexOf("--dir") === -1 ? "./aoijs" : input[input.indexOf("--dir") + 1]);
 
 if (input.includes("upgrade")) {
   //@ts-ignore

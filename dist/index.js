@@ -5,7 +5,7 @@ import { upgrade } from "../dist/upgrade.js";
 import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const input = process.argv;
-const loc = path.join(__dirname, "..", input.indexOf("--dir") === -1 ? "./aoijs" : input[input.indexOf("--dir") + 1]);
+const loc = path.join(process.cwd(), input.indexOf("--dir") === -1 ? "./aoijs" : input[input.indexOf("--dir") + 1]);
 if (input.includes("upgrade")) {
     //@ts-ignore
     upgrade(loc);

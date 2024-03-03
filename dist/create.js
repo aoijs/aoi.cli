@@ -15,7 +15,7 @@ const includeInvite = args.includes("--invite");
 const useSharding = args.includes("--sharding");
 const noInstall = args.includes("--no-install");
 let spinner;
-const location = path.join(__dirname, "..", args.indexOf("--dir") === -1 ? "./aoijs" : args[args.indexOf("--dir") + 1]);
+const location = path.join(process.cwd(), args.indexOf("--dir") === -1 ? "./aoijs" : args[args.indexOf("--dir") + 1]);
 const packageManager = checkPackageManagerType(location);
 async function generateTemplate(loc) {
     spinner.stop().clear();

@@ -19,7 +19,7 @@ const noInstall = args.includes("--no-install");
 
 let spinner: Ora;
 
-const location: string = path.join(__dirname, "..", args.indexOf("--dir") === -1 ? "./aoijs" : args[args.indexOf("--dir") + 1]);
+const location: string = path.join(process.cwd(), args.indexOf("--dir") === -1 ? "./aoijs" : args[args.indexOf("--dir") + 1]);
 const packageManager = checkPackageManagerType(location);
 
 async function generateTemplate(loc: string): Promise<void> {
