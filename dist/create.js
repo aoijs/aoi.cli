@@ -17,31 +17,31 @@ const noInstall = args.includes("--no-install");
 let spinner;
 const location = path.join(__dirname, "..", args.indexOf("--dir") === -1 ? "./aoijs" : args[args.indexOf("--dir") + 1]);
 const packageManager = checkPackageManagerType(location);
-await wait(2000);
 async function generateTemplate(loc) {
     spinner.stop().clear();
     spinner = ora("Checking if directory exists..").start();
     await wait(2000);
+    spinner.stop().clear();
+    console.log(chalk.green(`\r\nCreating template in "${loc}" \r\n`));
     if (!existsSync(loc)) {
         const spinner = ora(`Directory doesn't exist, creating..`).start();
         try {
             await new Promise((resolve, reject) => {
                 mkdir(loc, { recursive: true }, (err) => {
                     if (err) {
-                        spinner.stop().clear();
-                        console.error("\n\r• Failed to create directory inside: " + chalk.cyan(location));
+                        console.error(chalk.red("\n\rFailed to create directory inside: " + loc));
                         reject(err);
                     }
                     else {
                         spinner.stop().clear();
-                        console.log("• Created directory.");
+                        mkdir(path.join(loc, "./commands"), { recursive: true }, (err) => { });
                         resolve();
                     }
                 });
             });
         }
         catch (error) {
-            console.error("\n\r• Failed to create directory inside: " + chalk.cyan(location));
+            console.error("\n\rFailed to create directory inside: " + chalk.cyan(location));
             process.exit(1);
         }
     }
@@ -71,24 +71,26 @@ async function generateTemplate(loc) {
         setup.push(_default[7]);
     setup.push(_default[8]);
     spinner.stop().clear();
-    console.log(`• Extensions: ${includeMusic ? chalk.green("@akarui/aoi.music") : chalk.red("@akarui/aoi.music")}, ${includePanel ? chalk.green("@akarui/aoi.panel") : chalk.red("@akarui/aoi.panel")}, ${includeInvite ? chalk.green("@akarui/aoi.invite") : chalk.red("@akarui/aoi.invite")}`);
+    if (includeMusic || includePanel || includeInvite) {
+        console.log(chalk.green(`Including ${[includeMusic && "@akarui/aoi.music", includePanel && "@akarui/aoi.panel", includeInvite && "@akarui/aoi.invite"].filter(Boolean).join(', ')} in the template.\r\n`));
+    }
     spinner = ora("Creating template...").start();
     await wait(2000);
     if (useSharding) {
         //@ts-ignore
         writeFileSync(path.join(location, "./sharding.js"), readFileSync(path.join(__dirname, "../templates/sharding.template"), "utf-8"));
         spinner.stop().clear();
-        console.log("• Created sharding template.");
+        console.log(chalk.green("\r\nCreated sharding template.\r\n"));
         spinner = ora("Creating template...").start();
         await wait(2000);
     }
     //@ts-ignore
     writeFileSync(path.join(location, "./index.js"), setup.join(""));
     spinner.stop().clear();
-    console.log("• Created template.");
+    console.log(chalk.green("Created directory and template files."));
 }
 console.log(`${chalk.bgYellow(" note ")}
-This command will create a template for you to start your bot.
+This command will create a template for you to start creating your aoi.js bot.
 
 ${chalk.bgCyan(" create ")}`);
 spinner = ora("Creating template...").start();
@@ -130,22 +132,22 @@ if (!noInstall) {
             await execa(packageManager, ["install", "ffmpeg-static", "opusscript"], { cwd: location });
         }
         spinner.stop().clear();
-        console.log("• Installed dependencies.");
+        console.log(chalk.green("\n\rInstalled all dependencies."));
     }
     catch (error) {
-        console.error("\n\r• Failed to install dependencies using " + chalk.cyan(packageManager));
+        console.error(chalk.red("\n\rFailed to install dependencies using " + chalk.cyan(packageManager)));
         console.log(error);
         process.exit(1);
     }
 }
 else {
     spinner.stop().clear();
-    console.log(chalk.gray("Used --no-install flag, skipping installing dependencies."));
-    console.log("• Skipped installing dependencies.");
+    console.log(chalk.gray("\n\rUsed --no-install flag, skipping installing dependencies."));
+    console.log(chalk.yellow("Skipped installing dependencies."));
 }
 console.log(`
 ${chalk.bgGreen(" done ")}
-You're now ready to go, simply switch to the directory and run ${chalk.cyan("node index.js")}
+You're now ready to go, simply switch to the directory using ${chalk.cyan(`cd ${location}`)} and run ${chalk.cyan("node index.js")}
 
 Happy coding! 🎉`);
 //# sourceMappingURL=create.js.map
