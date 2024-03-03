@@ -33,12 +33,13 @@ export async function uninstallPackage(packageManager: string, _package: string)
 
 export function checkPackageManagerType(loc: string): string {
     if (!existsSync(path.join(loc, "package.json"))) { 
-      console.error("• No package.json found.");  
+      // Fallback to npm when no package.json
+      return "npm";
     };
     if (existsSync(path.join(loc, "package-lock.json"))) {
       // check if package manager is npm
       return "npm";
-    } else if (existsSync(path.join(loc, "pnpm-lock.yml"))) {
+    } else if (existsSync(path.join(loc, "pnpm-lock.yaml"))) {
       // check if package manager is pnpm
       return "pnpm";
     } else if (existsSync(path.join(loc, "bun.lockb"))) {
