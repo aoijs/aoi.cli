@@ -1,28 +1,28 @@
-// checking for the type of command to be executed
-import path from "path";
-//@ts-ignore
-import { upgrade } from "../dist/upgrade.js";
-import { fileURLToPath } from "node:url";
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import { upgrade } from '../dist/upgrade.js';
+import { help } from '../dist/help.js';
+import { join } from 'path';
 const input = process.argv;
-const loc = path.join(process.cwd(), input.indexOf("--dir") === -1 ? "./aoijs" : input[input.indexOf("--dir") + 1]);
-if (input.includes("upgrade")) {
-    //@ts-ignore
-    upgrade(loc);
-}
-else if (input.includes("create")) {
-    // create new aoi.js project
-    //@ts-ignore
-    import("../dist/create.js");
-}
-else if (input.includes("help")) {
-    // list all available commands and current version
-    //@ts-ignore
-    import("../dist/help.js");
-}
-else {
-    // fallback, list all available commands and current version
-    //@ts-ignore
-    import("../dist/help.js");
+let loc;
+const commands = ['upgrade', 'create', 'help'];
+const command = input.find((arg) => commands.includes(arg));
+switch (command) {
+    case 'upgrade':
+        // If the "--dir" argument is provided, use its value as the location
+        // Otherwise, use the current working directory
+        loc = join(process.cwd(), input.indexOf('--dir') === -1 ? './' : input[input.indexOf('--dir') + 1]);
+        upgrade(loc);
+        break;
+    case 'create':
+        // If the "--dir" argument is provided, use its value as the location
+        // Otherwise, use "aoijs" in the current working directory
+        loc = join(process.cwd(), input.indexOf('--dir') === -1 ? './aoijs' : input[input.indexOf('--dir') + 1]);
+        import('../dist/create.js');
+        break;
+    case 'help':
+    default:
+        // If no command is provided, or if the command is "help", show the help message
+        help(command);
+        console.log(command);
+        break;
 }
 //# sourceMappingURL=index.js.map

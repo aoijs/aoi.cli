@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "strictNullChecks": true,
     "strict": true,
     "skipLibCheck": true,
@@ -20,6 +20,6 @@
     "outDir": "dist"
   },
   "exclude": ["node_modules"],
-  "include": ["src/**/*", "templates"],
+  "include": ["src/**/*"],
   "compileOnSave": true
 }
