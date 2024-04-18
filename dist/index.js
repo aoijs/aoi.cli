@@ -21,8 +21,7 @@ switch (command) {
     case 'help':
     default:
         // If no command is provided, or if the command is "help", show the help message
-        help(command);
-        console.log(command);
+        help(input[2]);
         break;
 }
 //# sourceMappingURL=index.js.map
