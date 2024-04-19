@@ -44,7 +44,7 @@ async function generateTemplate(loc) {
                     }
                     else {
                         spinner.stop().clear();
-                        mkdir(path.join(loc, './commands'), { recursive: true }, (err) => { });
+                        mkdir(path.join(loc, 'commands'), { recursive: true }, (err) => { });
                         resolve();
                     }
                 });
@@ -96,7 +96,7 @@ async function generateTemplate(loc) {
     }
     //@ts-ignore
     writeFileSync(path.join(location, './index.js'), setup.join(''));
-    writeFileSync(path.join(location, './commands/ping.js'), readFileSync(path.join(__dirname, '../templates/aoi.js/commands/ping.template'), 'utf-8'));
+    writeFileSync(path.join(location, 'commands', 'ping.js'), readFileSync(path.join(__dirname, '../templates/aoi.js/commands/ping.template'), 'utf-8'));
     spinner.stop().clear();
     console.log(chalk.green('Created directory and template files.'));
 }
