@@ -19,4 +19,4 @@ This CLI is not meant to be installed, simply use NPX to run it.
 npx @akarui/aoi.cli
 ```
 
-A list with all available commands and flags can be found by running `npx aoijs help` or `npx aoijs`.
+A list with all available commands and flags can be found by running `npx @akarui/aoi.cli help` or `npx @akarui/aoi.cli`.
