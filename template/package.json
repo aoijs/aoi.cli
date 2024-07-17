@@ -1,0 +1,16 @@
+{
+  "name": "aoijs-template",
+  "private": true,
+  "main": "index.js",
+  "license": "ISC",
+  "scripts": {
+    "start": "node --require dotenv/config index.js"
+  },
+  "dependencies": {
+    "aoi.js": "^6.8.5",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
+}
